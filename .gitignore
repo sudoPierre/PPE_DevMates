@@ -6,3 +6,6 @@ build/
 *.log
 *.tmp
 .DS_Store
+publish/
+bin/
+obj/
