@@ -12,8 +12,9 @@ RUN apt-get update && apt-get install -y \
     && docker-php-ext-install pdo pdo_mysql gd \
     && rm -rf /var/lib/apt/lists/*
 
-# Activation des modules Apache requis
-RUN a2enmod rewrite headers
+# Activation des modules Apache requis + suppression de l'avertissement ServerName
+RUN a2enmod rewrite headers \
+    && echo "ServerName localhost" >> /etc/apache2/apache2.conf
 
 # Copie de la configuration du VirtualHost personnalisé
 COPY apache/devmates.conf /etc/apache2/sites-available/000-default.conf
