@@ -1,5 +1,8 @@
 RewriteEngine On
 
+# Apache filtre le header Authorization avant de le passer à PHP — on le réinjecte manuellement
+RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+
 # Redirection de toutes les requêtes vers le front controller index.php
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
