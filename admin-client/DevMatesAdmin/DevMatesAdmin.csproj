@@ -3,17 +3,21 @@
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
     <TargetFramework>net8.0</TargetFramework>
-    <UseWindowsForms>true</UseWindowsForms>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <AssemblyName>DevMatesAdmin</AssemblyName>
     <RootNamespace>DevMatesAdmin</RootNamespace>
-    <ApplicationHighDpiMode>PerMonitorV2</ApplicationHighDpiMode>
   </PropertyGroup>
 
   <ItemGroup>
-    <!-- Sérialisation / désérialisation JSON pour les réponses de l'API REST -->
-    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <!-- Interface graphique cross-platform (Windows + macOS + Linux) -->
+    <PackageReference Include="Avalonia"                   Version="11.2.3" />
+    <PackageReference Include="Avalonia.Desktop"           Version="11.2.3" />
+    <PackageReference Include="Avalonia.Themes.Fluent"     Version="11.2.3" />
+    <PackageReference Include="Avalonia.Controls.DataGrid" Version="11.2.3" />
+    <PackageReference Include="Avalonia.Fonts.Inter"       Version="11.2.3" />
+    <!-- Sérialisation JSON pour les réponses de l'API REST -->
+    <PackageReference Include="Newtonsoft.Json"            Version="13.0.3" />
   </ItemGroup>
 
 </Project>

@@ -28,14 +28,23 @@ public class User
     [JsonProperty("created_at")]
     public string CreatedAt { get; set; } = string.Empty;
 
-    /// <summary>Libellé du rôle traduit en français pour l'affichage</summary>
+    /// <summary>Libellé du rôle traduit en français pour l'affichage dans le DataGrid</summary>
     public string RoleLibelle => Role switch
     {
-        "admin"           => "Administrateur",
-        "developpeur"     => "Développeur",
-        "porteur_projet"  => "Porteur de projet",
-        _                 => Role,
+        "admin"          => "Administrateur",
+        "developpeur"    => "Développeur",
+        "porteur_projet" => "Porteur de projet",
+        _                => Role,
     };
+
+    /// <summary>Nom affiché avec fallback pour le DataGrid</summary>
+    public string NomAffiche => DisplayName ?? "(non renseigné)";
+
+    /// <summary>Libellé du statut actif pour le DataGrid</summary>
+    public string EstActifLibelle => IsActive ? "✓ Oui" : "✗ Non";
+
+    /// <summary>Libellé du statut banni pour le DataGrid</summary>
+    public string EstBanniLibelle => IsBanned ? "✓ Oui" : "✗ Non";
 }
 
 /// <summary>

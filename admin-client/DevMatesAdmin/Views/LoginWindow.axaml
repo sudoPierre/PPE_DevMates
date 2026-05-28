@@ -1,0 +1,57 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        x:Class="DevMatesAdmin.Views.LoginWindow"
+        Title="DevMates Admin — Connexion"
+        Width="420"
+        Height="370"
+        CanResize="False"
+        WindowStartupLocation="CenterScreen"
+        Background="White">
+
+    <Border Padding="40,32">
+        <StackPanel Spacing="10">
+
+            <!-- En-tête -->
+            <TextBlock Text="DevMates Admin"
+                       FontSize="22"
+                       FontWeight="Bold"
+                       Foreground="#FF4F5A"
+                       HorizontalAlignment="Center"/>
+
+            <TextBlock Text="Espace administrateur"
+                       Foreground="#718096"
+                       HorizontalAlignment="Center"
+                       FontSize="12"
+                       Margin="0,0,0,16"/>
+
+            <!-- Champs du formulaire -->
+            <TextBlock Text="Adresse email" FontWeight="SemiBold" FontSize="13"/>
+            <TextBox x:Name="TxtEmail"
+                     Watermark="admin@devmates.com"
+                     Margin="0,4,0,12"/>
+
+            <TextBlock Text="Mot de passe" FontWeight="SemiBold" FontSize="13"/>
+            <TextBox x:Name="TxtPassword"
+                     PasswordChar="●"
+                     Margin="0,4,0,18"/>
+
+            <!-- Bouton de connexion -->
+            <Button x:Name="BtnConnexion"
+                    Content="Se connecter"
+                    HorizontalAlignment="Stretch"
+                    HorizontalContentAlignment="Center"
+                    Padding="0,12"
+                    FontWeight="Bold"
+                    Click="BtnConnexion_Click"/>
+
+            <!-- Message d'erreur (masqué par défaut) -->
+            <TextBlock x:Name="LblErreur"
+                       Foreground="#DC3545"
+                       TextWrapping="Wrap"
+                       FontSize="12"
+                       IsVisible="False"/>
+
+        </StackPanel>
+    </Border>
+
+</Window>

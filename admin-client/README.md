@@ -1,26 +1,32 @@
-# Client Admin — C# WinForms
+# Client Admin — C# Avalonia (cross-platform)
 
-Application de bureau Windows dédiée à la gestion administrative de la plateforme DevMates. Elle communique exclusivement avec l'API REST — aucune connexion directe à MySQL n'est effectuée.
+Application de bureau dédiée à la gestion administrative de DevMates. Elle tourne sur **Windows et macOS** grâce à [Avalonia UI](https://avaloniaui.net/). Elle communique exclusivement avec l'API REST — aucune connexion directe à MySQL n'est effectuée.
 
 ## Prérequis
 
-- Windows 10 ou supérieur
-- [.NET 8 SDK](https://dotnet.microsoft.com/download/dotnet/8.0) (ou Runtime si vous utilisez un exécutable publié)
+- Windows 10+ ou macOS 11+
+- [.NET 8 SDK](https://dotnet.microsoft.com/download/dotnet/8.0)
 - Le backend Docker doit être démarré et accessible sur `http://localhost:8080`
 
 ## Structure du projet
 
 ```
 admin-client/DevMatesAdmin/
-├── DevMatesAdmin.csproj     ← Projet .NET 8 WinForms
-├── Program.cs               ← Point d'entrée : LoginForm → MainForm
+├── DevMatesAdmin.csproj     ← Projet .NET 8 Avalonia (net8.0 — cross-platform)
+├── Program.cs               ← Point d'entrée Avalonia
+├── App.axaml                ← Définition de l'application + thème Fluent
+├── App.axaml.cs             ← Démarrage : instancie ApiService et LoginWindow
 ├── Models/
-│   └── User.cs              ← Modèles de données (User, LoginResponse, ApiErreur)
+│   └── User.cs              ← Modèles (User, LoginResponse, ApiErreur)
 ├── Services/
-│   └── ApiService.cs        ← Toutes les communications HTTP avec l'API
-└── Forms/
-    ├── LoginForm.cs         ← Formulaire de connexion admin
-    └── MainForm.cs          ← Tableau de bord principal
+│   └── ApiService.cs        ← Communications HTTP avec l'API via HttpClient
+├── Helpers/
+│   └── DialogHelper.cs      ← Boîtes de dialogue modales (info / confirmation)
+└── Views/
+    ├── LoginWindow.axaml     ← Fenêtre de connexion (XAML)
+    ├── LoginWindow.axaml.cs  ← Code-behind connexion
+    ├── MainWindow.axaml      ← Tableau de bord (DataGrid + boutons d'action)
+    └── MainWindow.axaml.cs   ← Code-behind tableau de bord
 ```
 
 ## Compilation et exécution
@@ -34,21 +40,25 @@ dotnet restore
 # Compilation et lancement
 dotnet run
 
-# Ou : publier un exécutable autonome Windows
-dotnet publish -c Release -r win-x64 --self-contained
-```
+# Publier un exécutable autonome Windows
+dotnet publish -c Release -r win-x64 --self-contained -o publish/windows
 
-L'exécutable produit se trouve dans `bin/Release/net8.0-windows/win-x64/publish/`.
+# Publier un exécutable autonome macOS (Apple Silicon)
+dotnet publish -c Release -r osx-arm64 --self-contained -o publish/macos-arm64
+
+# Publier un exécutable autonome macOS (Intel)
+dotnet publish -c Release -r osx-x64 --self-contained -o publish/macos-x64
+```
 
 ## Fonctionnement
 
-### Connexion
+### Connexion (`LoginWindow`)
 
-Au démarrage, `LoginForm` demande les identifiants d'un compte ayant le rôle `admin`. Les identifiants sont envoyés à `POST /api/auth/login`. Si le rôle retourné n'est pas `admin`, l'accès est refusé même si les identifiants sont corrects.
+Au démarrage, `LoginWindow` demande les identifiants d'un compte `admin`. Les identifiants sont envoyés à `POST /api/auth/login`. Si le rôle retourné n'est pas `admin`, l'accès est refusé. En cas de succès, `MainWindow` s'ouvre et `LoginWindow` se ferme.
 
-### Tableau de bord (`MainForm`)
+### Tableau de bord (`MainWindow`)
 
-La fenêtre principale affiche la liste complète des utilisateurs dans un `DataGridView`.
+Affiche la liste complète des utilisateurs dans un `DataGrid` Avalonia.
 
 | Colonne | Description |
 |---|---|
@@ -60,8 +70,6 @@ La fenêtre principale affiche la liste complète des utilisateurs dans un `Data
 | Banni | Statut de bannissement |
 | Inscription | Date de création du compte |
 
-Les lignes des comptes bannis sont colorées en rouge clair pour une identification visuelle rapide.
-
 ### Actions disponibles
 
 | Bouton | Action | Endpoint appelé |
@@ -71,24 +79,22 @@ Les lignes des comptes bannis sont colorées en rouge clair pour une identificat
 | Bannir | Passe `is_banned` à 1 | `POST /api/admin/users/:id/ban` |
 | Supprimer | Suppression définitive | `DELETE /api/admin/users/:id` |
 
-Chaque action destructive (bannissement, suppression) affiche une boîte de dialogue de confirmation avant d'être exécutée.
-
-## Architecture du service API
-
-`ApiService` utilise une instance statique partagée de `HttpClient` (bonne pratique .NET pour éviter l'épuisement des sockets). Après connexion réussie, le token JWT est défini dans `DefaultRequestHeaders.Authorization` et sera automatiquement envoyé dans toutes les requêtes suivantes.
-
-```csharp
-// Exemple d'utilisation dans un formulaire
-var apiService = new ApiService("http://localhost:8080/api");
-var reponse = await apiService.ConnecterAsync("admin@devmates.com", "motdepasse");
-apiService.SetToken(reponse.Token);
-var utilisateurs = await apiService.ObtenirUtilisateursAsync();
-```
+Chaque action destructive affiche une boîte de dialogue de confirmation (`DialogHelper`) avant d'être exécutée.
 
 ## Changer l'URL de l'API
 
-Si le backend est déployé sur un serveur distant, modifier l'URL dans `Program.cs` :
+Modifier la valeur dans `App.axaml.cs` :
 
 ```csharp
 var apiService = new ApiService("https://api.mon-serveur.com/api");
 ```
+
+## Dépendances principales
+
+| Paquet | Version | Rôle |
+|---|---|---|
+| `Avalonia` | 11.2.3 | Framework UI cross-platform |
+| `Avalonia.Desktop` | 11.2.3 | Support Win32 / AvaloniaNative (macOS) |
+| `Avalonia.Themes.Fluent` | 11.2.3 | Thème visuel Fluent Design |
+| `Avalonia.Controls.DataGrid` | 11.2.3 | Composant tableau de données |
+| `Newtonsoft.Json` | 13.0.3 | Désérialisation des réponses JSON de l'API |
