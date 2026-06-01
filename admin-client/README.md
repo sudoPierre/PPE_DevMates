@@ -5,7 +5,7 @@ Application de bureau dédiée à la gestion administrative de DevMates. Elle to
 ## Prérequis
 
 - Windows 10+ ou macOS 11+
-- [.NET 8 SDK](https://dotnet.microsoft.com/download/dotnet/8.0)
+- [.NET 10 SDK](https://dotnet.microsoft.com/download/dotnet/8.0)
 - Le backend Docker doit être démarré et accessible sur `http://localhost:8080`
 
 ## Structure du projet
