@@ -106,3 +106,288 @@ label {
   transition: background 0.15s;
 }
 .badge:hover { background: #fecaca; }
+
+/* ══════════════════════════════════════════
+   Landing Page
+   ══════════════════════════════════════════ */
+.landing {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* En-tête --------------------------------- */
+.landing-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 2rem;
+  background: #fff;
+  box-shadow: 0 1px 0 #e2e8f0;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+.landing-logo {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--couleur-primaire);
+  letter-spacing: -0.5px;
+}
+.landing-nav {
+  display: flex;
+  gap: 0.75rem;
+}
+
+/* Section héro ----------------------------- */
+.landing-hero {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4rem;
+  padding: 5rem 2rem 4rem;
+  background: linear-gradient(135deg, #fff1f2 0%, #fff 60%);
+  flex-wrap: wrap;
+}
+.landing-hero-contenu {
+  max-width: 540px;
+}
+.landing-titre {
+  font-size: clamp(2rem, 5vw, 3rem);
+  font-weight: 800;
+  line-height: 1.2;
+  color: #1a202c;
+  margin-bottom: 1.25rem;
+}
+.landing-titre em {
+  color: var(--couleur-primaire);
+  font-style: normal;
+}
+.landing-sous-titre {
+  font-size: 1.1rem;
+  color: #4a5568;
+  margin-bottom: 2rem;
+  line-height: 1.7;
+}
+.landing-cta {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+.landing-btn-hero {
+  padding: 0.85rem 2rem;
+  font-size: 1rem;
+  border-radius: 10px;
+}
+.landing-btn-fantome {
+  padding: 0.85rem 2rem;
+  font-size: 1rem;
+  border-radius: 10px;
+  background: transparent;
+  border: 2px solid var(--couleur-primaire);
+  color: var(--couleur-primaire);
+  font-weight: 600;
+  text-decoration: none;
+  transition: background 0.15s, color 0.15s;
+}
+.landing-btn-fantome:hover { background: var(--couleur-primaire); color: #fff; opacity: 1; }
+
+/* Visuel flottant dans le héro ------------ */
+.landing-hero-visuel {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  min-width: 240px;
+}
+.landing-carte-flottante {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  background: #fff;
+  border-radius: 14px;
+  padding: 1rem 1.25rem;
+  box-shadow: var(--ombre);
+}
+.landing-carte-flottante p {
+  font-size: 0.8rem;
+  color: #718096;
+  margin: 0;
+}
+.landing-carte-decalee {
+  margin-left: 2rem;
+}
+.landing-avatar {
+  font-size: 2rem;
+}
+.landing-icone-match {
+  font-size: 1.75rem;
+  text-align: center;
+  animation: pulse-match 1.8s ease-in-out infinite;
+}
+@keyframes pulse-match {
+  0%, 100% { transform: scale(1); }
+  50%       { transform: scale(1.2); }
+}
+
+/* Section fonctionnalités ----------------- */
+.landing-fonctionnalites {
+  padding: 5rem 2rem;
+  background: #fff;
+  text-align: center;
+}
+.landing-section-titre {
+  font-size: 1.75rem;
+  font-weight: 800;
+  color: #1a202c;
+  margin-bottom: 3rem;
+}
+.landing-grille {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1.5rem;
+  max-width: 960px;
+  margin: 0 auto;
+}
+.landing-feature-carte {
+  background: var(--couleur-fond);
+  border-radius: var(--rayon-bord);
+  padding: 2rem 1.5rem;
+  text-align: left;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.landing-feature-carte:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.10);
+}
+.landing-feature-icone {
+  font-size: 2rem;
+  display: block;
+  margin-bottom: 1rem;
+}
+.landing-feature-carte h3 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  color: #1a202c;
+}
+.landing-feature-carte p {
+  font-size: 0.9rem;
+  color: #4a5568;
+  line-height: 1.6;
+}
+
+/* CTA final ------------------------------- */
+.landing-cta-final {
+  padding: 5rem 2rem;
+  background: linear-gradient(135deg, var(--couleur-primaire) 0%, #ff8c94 100%);
+  text-align: center;
+  color: #fff;
+}
+.landing-cta-final h2 {
+  font-size: 2rem;
+  font-weight: 800;
+  margin-bottom: 0.75rem;
+}
+.landing-cta-final p {
+  font-size: 1.1rem;
+  margin-bottom: 2rem;
+  opacity: 0.9;
+}
+.landing-cta-final .btn-primaire {
+  background: #fff;
+  color: var(--couleur-primaire);
+}
+.landing-cta-final .btn-primaire:hover { opacity: 0.92; }
+
+/* Pied de page ---------------------------- */
+.landing-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  padding: 1.5rem 2rem;
+  background: #1a202c;
+  color: #a0aec0;
+  font-size: 0.85rem;
+  margin-top: auto;
+}
+.landing-footer-lien {
+  color: #fff;
+  text-decoration: none;
+  font-weight: 600;
+}
+.landing-footer-lien:hover { text-decoration: underline; }
+
+/* ══════════════════════════════════════════
+   Mentions Légales
+   ══════════════════════════════════════════ */
+.mentions-page {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+.mentions-contenu {
+  flex: 1;
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 3rem 1.5rem;
+  width: 100%;
+}
+.mentions-contenu h1 {
+  font-size: 2rem;
+  font-weight: 800;
+  color: #1a202c;
+  margin-bottom: 0.25rem;
+}
+.mentions-date {
+  color: #718096;
+  font-size: 0.875rem;
+  margin-bottom: 2.5rem;
+}
+.mentions-retour {
+  display: inline-block;
+  color: var(--couleur-primaire);
+  font-weight: 600;
+  text-decoration: none;
+  font-size: 0.9rem;
+  margin-bottom: 1.5rem;
+}
+.mentions-retour:hover { text-decoration: underline; }
+.mentions-section {
+  margin-bottom: 2.5rem;
+}
+.mentions-section h2 {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #2d3748;
+  margin-bottom: 0.75rem;
+  padding-bottom: 0.4rem;
+  border-bottom: 2px solid #fee2e2;
+}
+.mentions-section p {
+  margin-bottom: 0.75rem;
+  line-height: 1.75;
+  color: #4a5568;
+}
+.mentions-section ul {
+  list-style: none;
+  padding: 0;
+  margin-bottom: 0.75rem;
+}
+.mentions-section ul li {
+  padding: 0.3rem 0;
+  color: #4a5568;
+  font-size: 0.95rem;
+}
+.mentions-section ul li::before {
+  content: '– ';
+  color: var(--couleur-primaire);
+  font-weight: 700;
+}
+.mentions-lien {
+  color: var(--couleur-primaire);
+  font-weight: 600;
+}
+.mentions-lien:hover { text-decoration: underline; }

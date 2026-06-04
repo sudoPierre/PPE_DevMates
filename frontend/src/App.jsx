@@ -1,6 +1,8 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider, useAuth } from './context/AuthContext';
+import LandingPage    from './pages/LandingPage';
+import MentionsLegales from './pages/MentionsLegales';
 import Login    from './pages/Login';
 import Register from './pages/Register';
 import Profile  from './pages/Profile';
@@ -17,12 +19,14 @@ function Routes_() {
   const { estConnecte } = useAuth();
   return (
     <Routes>
-      <Route path="/login"    element={estConnecte ? <Navigate to="/match" replace /> : <Login />} />
-      <Route path="/register" element={estConnecte ? <Navigate to="/match" replace /> : <Register />} />
-      <Route path="/profile"  element={<RoutePrivee><Profile /></RoutePrivee>} />
-      <Route path="/match"    element={<RoutePrivee><Matching /></RoutePrivee>} />
-      <Route path="/chat/:matchId" element={<RoutePrivee><Chat /></RoutePrivee>} />
-      <Route path="*"         element={<Navigate to={estConnecte ? '/match' : '/login'} replace />} />
+      <Route path="/"               element={estConnecte ? <Navigate to="/match" replace /> : <LandingPage />} />
+      <Route path="/mentions-legales" element={<MentionsLegales />} />
+      <Route path="/login"          element={estConnecte ? <Navigate to="/match" replace /> : <Login />} />
+      <Route path="/register"       element={estConnecte ? <Navigate to="/match" replace /> : <Register />} />
+      <Route path="/profile"        element={<RoutePrivee><Profile /></RoutePrivee>} />
+      <Route path="/match"          element={<RoutePrivee><Matching /></RoutePrivee>} />
+      <Route path="/chat/:matchId"  element={<RoutePrivee><Chat /></RoutePrivee>} />
+      <Route path="*"               element={<Navigate to={estConnecte ? '/match' : '/'} replace />} />
     </Routes>
   );
 }
