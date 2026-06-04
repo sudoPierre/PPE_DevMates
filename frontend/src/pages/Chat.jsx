@@ -15,8 +15,9 @@ export default function Chat() {
   const [envoi, setEnvoi]             = useState(false);
   const [erreur, setErreur]           = useState('');
   const finListeRef  = useRef(null);
-  const dernierRef   = useRef(null); // horodatage DATETIME du dernier message connu
-  const intervalRef  = useRef(null);
+  const dernierRef        = useRef(null); // horodatage DATETIME du dernier message connu
+  const intervalRef       = useRef(null);
+  const chargementInitRef = useRef(true); // true = prochain scroll sera instantané (chargement initial)
 
   // Chargement initial de l'historique complet
   useEffect(() => {
@@ -25,12 +26,15 @@ export default function Chat() {
     return () => clearInterval(intervalRef.current);
   }, [matchId]);
 
-  // Défilement automatique vers le bas à chaque nouveau message
+  // Défilement vers le bas : instantané au chargement initial, fluide pour les nouveaux messages
   useEffect(() => {
-    finListeRef.current?.scrollIntoView({ behavior: 'smooth' });
+    const comportement = chargementInitRef.current ? 'instant' : 'smooth';
+    chargementInitRef.current = false;
+    finListeRef.current?.scrollIntoView({ behavior: comportement });
   }, [messages]);
 
   const chargerHistorique = async () => {
+    chargementInitRef.current = true; // réinitialise le mode scroll pour ce chargement
     try {
       const { data } = await api.get(`/messages/${matchId}`);
       setMessages(data);
@@ -75,7 +79,7 @@ export default function Chat() {
     try {
       await api.post(`/messages/${matchId}`, { content: contenu });
       setTexte('');
-      await chargerHistorique(); // Recharge pour inclure le message envoyé
+      await rafraichir(); // delta fetch pour inclure uniquement le message envoyé
     } catch {
       setErreur("Erreur lors de l'envoi du message. Réessayez.");
     } finally {
@@ -91,7 +95,7 @@ export default function Chat() {
       {/* En-tête de conversation */}
       <div style={{ padding: '1rem 1.25rem', background: 'var(--couleur-primaire)', color: '#fff', display: 'flex', alignItems: 'center', gap: '0.75rem', boxShadow: '0 2px 8px rgba(0,0,0,0.15)' }}>
         <button
-          onClick={() => navigate('/match')}
+          onClick={() => navigate('/conversations')}
           style={{ background: 'none', border: 'none', color: '#fff', fontSize: '1.5rem', cursor: 'pointer', lineHeight: 1 }}
           aria-label="Retour"
         >

@@ -62,9 +62,14 @@ export default function Matching() {
       {/* Navigation */}
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem' }}>
         <h2>Découvrir</h2>
-        <button onClick={() => navigate('/profile')} className="btn btn-secondaire" style={{ padding: '0.5rem 1rem', fontSize: '0.875rem' }}>
-          Mon profil
-        </button>
+        <div style={{ display: 'flex', gap: '0.5rem' }}>
+          <button onClick={() => navigate('/conversations')} className="btn btn-secondaire" style={{ padding: '0.5rem 1rem', fontSize: '0.875rem' }}>
+            Conversations
+          </button>
+          <button onClick={() => navigate('/profile')} className="btn btn-secondaire" style={{ padding: '0.5rem 1rem', fontSize: '0.875rem' }}>
+            Mon profil
+          </button>
+        </div>
       </div>
 
       {/* Alerte match mutuel */}

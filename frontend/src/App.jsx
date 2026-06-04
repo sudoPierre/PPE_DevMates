@@ -1,13 +1,14 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider, useAuth } from './context/AuthContext';
-import LandingPage    from './pages/LandingPage';
+import LandingPage     from './pages/LandingPage';
 import MentionsLegales from './pages/MentionsLegales';
-import Login    from './pages/Login';
-import Register from './pages/Register';
-import Profile  from './pages/Profile';
-import Matching from './pages/Matching';
-import Chat     from './pages/Chat';
+import Login          from './pages/Login';
+import Register       from './pages/Register';
+import Profile        from './pages/Profile';
+import Matching       from './pages/Matching';
+import Conversations  from './pages/Conversations';
+import Chat           from './pages/Chat';
 
 // Garde de route — redirige vers /login si non authentifié
 function RoutePrivee({ children }) {
@@ -23,9 +24,10 @@ function Routes_() {
       <Route path="/mentions-legales" element={<MentionsLegales />} />
       <Route path="/login"          element={estConnecte ? <Navigate to="/match" replace /> : <Login />} />
       <Route path="/register"       element={estConnecte ? <Navigate to="/match" replace /> : <Register />} />
-      <Route path="/profile"        element={<RoutePrivee><Profile /></RoutePrivee>} />
-      <Route path="/match"          element={<RoutePrivee><Matching /></RoutePrivee>} />
-      <Route path="/chat/:matchId"  element={<RoutePrivee><Chat /></RoutePrivee>} />
+      <Route path="/profile"           element={<RoutePrivee><Profile /></RoutePrivee>} />
+      <Route path="/match"             element={<RoutePrivee><Matching /></RoutePrivee>} />
+      <Route path="/conversations"     element={<RoutePrivee><Conversations /></RoutePrivee>} />
+      <Route path="/chat/:matchId"     element={<RoutePrivee><Chat /></RoutePrivee>} />
       <Route path="*"               element={<Navigate to={estConnecte ? '/match' : '/'} replace />} />
     </Routes>
   );

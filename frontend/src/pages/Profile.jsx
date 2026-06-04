@@ -70,6 +70,9 @@ export default function Profile() {
           <button onClick={() => navigate('/match')} className="btn btn-secondaire" style={{ padding: '0.5rem 1rem', fontSize: '0.875rem' }}>
             Découvrir
           </button>
+          <button onClick={() => navigate('/conversations')} className="btn btn-secondaire" style={{ padding: '0.5rem 1rem', fontSize: '0.875rem' }}>
+            Conversations
+          </button>
           <button onClick={logout} className="btn btn-danger" style={{ padding: '0.5rem 1rem', fontSize: '0.875rem' }}>
             Déconnexion
           </button>
