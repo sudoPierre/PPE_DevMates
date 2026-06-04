@@ -9,7 +9,10 @@ declare(strict_types=1);
 
 // Autoloader PSR-4 maison (sans Composer) — mappe namespace\ClassName → namespace/ClassName.php
 spl_autoload_register(static function (string $class): void {
-    $file = __DIR__ . '/' . str_replace('\\', '/', $class) . '.php';
+    $parts     = explode('\\', $class);
+    $className = array_pop($parts);
+    $dir       = $parts ? strtolower(implode('/', $parts)) . '/' : '';
+    $file      = __DIR__ . '/' . $dir . $className . '.php';
     if (file_exists($file)) {
         require_once $file;
     }
