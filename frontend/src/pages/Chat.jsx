@@ -13,8 +13,9 @@ export default function Chat() {
   const [messages, setMessages]       = useState([]);
   const [texte, setTexte]             = useState('');
   const [envoi, setEnvoi]             = useState(false);
+  const [erreur, setErreur]           = useState('');
   const finListeRef  = useRef(null);
-  const dernierRef   = useRef(null); // horodatage ISO du dernier message connu
+  const dernierRef   = useRef(null); // horodatage DATETIME du dernier message connu
   const intervalRef  = useRef(null);
 
   // Chargement initial de l'historique complet
@@ -30,22 +31,37 @@ export default function Chat() {
   }, [messages]);
 
   const chargerHistorique = async () => {
-    const { data } = await api.get(`/messages/${matchId}`);
-    setMessages(data);
-    if (data.length > 0) {
-      dernierRef.current = data[data.length - 1].sent_at;
+    try {
+      const { data } = await api.get(`/messages/${matchId}`);
+      setMessages(data);
+      // Initialise le curseur de polling : dernier message ou maintenant si aucun message
+      // Sans cette initialisation, le polling reste désactivé et les nouveaux messages n'arrivent jamais
+      dernierRef.current = data.length > 0
+        ? data[data.length - 1].sent_at
+        : new Date().toISOString().slice(0, 19).replace('T', ' ');
+    } catch {
+      setErreur('Impossible de charger les messages. Vérifiez votre connexion.');
     }
   };
 
   // Short Polling : demande uniquement les messages postérieurs au dernier connu
   const rafraichir = async () => {
     if (!dernierRef.current) return;
-    const { data } = await api.get(`/messages/${matchId}`, {
-      params: { since: dernierRef.current },
-    });
-    if (data.length > 0) {
-      setMessages((prev) => [...prev, ...data]);
-      dernierRef.current = data[data.length - 1].sent_at;
+    try {
+      const { data } = await api.get(`/messages/${matchId}`, {
+        params: { since: dernierRef.current },
+      });
+      if (data.length > 0) {
+        // Déduplique par ID pour éviter les doublons lors d'une recharge simultanée
+        setMessages((prev) => {
+          const ids = new Set(prev.map((m) => m.id));
+          const nouveaux = data.filter((m) => !ids.has(m.id));
+          return nouveaux.length > 0 ? [...prev, ...nouveaux] : prev;
+        });
+        dernierRef.current = data[data.length - 1].sent_at;
+      }
+    } catch {
+      // Échec silencieux : la prochaine itération réessaiera
     }
   };
 
@@ -55,10 +71,13 @@ export default function Chat() {
     if (!contenu || envoi) return;
 
     setEnvoi(true);
+    setErreur('');
     try {
       await api.post(`/messages/${matchId}`, { content: contenu });
       setTexte('');
       await chargerHistorique(); // Recharge pour inclure le message envoyé
+    } catch {
+      setErreur("Erreur lors de l'envoi du message. Réessayez.");
     } finally {
       setEnvoi(false);
     }
@@ -116,6 +135,13 @@ export default function Chat() {
         )}
         <div ref={finListeRef} />
       </div>
+
+      {/* Bandeau d'erreur */}
+      {erreur && (
+        <div style={{ padding: '0.5rem 1rem', background: '#fee2e2', color: 'var(--couleur-danger)', fontSize: '0.85rem', textAlign: 'center' }}>
+          {erreur}
+        </div>
+      )}
 
       {/* Zone de saisie */}
       <form
