@@ -38,18 +38,6 @@
                     </div>
                 </div>
 
-                <div class="accordion-item">
-                    <h2 class="accordion-header" id="faqHeading3">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapse3" aria-expanded="false" aria-controls="faqCollapse3">
-                            Est-ce que les messages sont privés ?
-                        </button>
-                    </h2>
-                    <div id="faqCollapse3" class="accordion-collapse collapse" aria-labelledby="faqHeading3" data-bs-parent="#faqAccordion">
-                        <div class="accordion-body">
-                            Oui, chaque conversation est privée et accessible uniquement par les utilisateurs concernés. Les messages sont stockés dans la base de données et affichés uniquement à l'expéditeur et au destinataire.
-                        </div>
-                    </div>
-                </div>
 
                 <div class="accordion-item">
                     <h2 class="accordion-header" id="faqHeading4">
