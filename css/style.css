@@ -1,0 +1,325 @@
+/* =============================================
+   FICHIER : css/style.css
+   RÔLE    : Styles personnalisés par-dessus
+             Bootstrap 5 pour DevMates.
+   Ici on donne une apparence moderne et
+   responsive à l'accueil et aux pages statiques.
+============================================= */
+
+/* ===== VARIABLES DE COULEURS ===== */
+:root {
+    --primary: #fb7185;
+    --primary-dk: #ef4444;
+    --purple: #fb923c;
+    --cyan: #38bdf8;
+    --white: #ffffff;
+    --surface: #fff7ed;
+    --surface-dark: #111827;
+    --text: #0f172a;
+    --text-muted: #475569;
+    --border: #f1f5f9;
+}
+
+/* ===== TYPOGRAPHIE ===== */
+body {
+    margin: 0;
+    min-height: 100vh;
+    font-family: 'Inter', sans-serif;
+    background-color: var(--surface);
+    color: var(--text);
+}
+
+h1, h2, h3, h4, h5, h6 {
+    letter-spacing: -0.02em;
+}
+
+p {
+    line-height: 1.75;
+}
+
+/* ===== CONTENEUR PRINCIPAL ===== */
+main {
+    flex: 1;
+}
+
+/* ===== SECTION HÉRO ===== */
+.hero-section {
+    position: relative;
+    overflow: hidden;
+    padding: 80px 0;
+    background: linear-gradient(140deg, #fff1e6 0%, #fed7aa 40%, #fb7185 100%);
+}
+
+.hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at top left, rgba(255,255,255,0.55), transparent 22%),
+                radial-gradient(circle at bottom right, rgba(255,255,255,0.42), transparent 22%);
+    pointer-events: none;
+}
+
+.hero-section .container {
+    position: relative;
+    z-index: 1;
+}
+
+.eyebrow {
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    color: var(--primary-dk);
+}
+
+.hero-section h1 {
+    font-size: clamp(2.8rem, 5vw, 4rem);
+    line-height: 1.05;
+    color: var(--text);
+}
+
+.hero-section .lead {
+    font-size: 1.05rem;
+    color: var(--text-muted);
+}
+
+.hero-section .btn {
+    min-width: 170px;
+}
+
+.hero-section .btn-primary {
+    background: #fb7185;
+    border-color: #fb7185;
+}
+
+.hero-section .btn-primary:hover,
+.hero-section .btn-primary:focus,
+.hero-section .btn-primary:active {
+    background: #f43f5e;
+    border-color: #f43f5e;
+}
+
+.hero-section .btn-outline-dark {
+    border-color: rgba(15,23,42,0.2);
+    color: var(--text);
+    background: rgba(255,255,255,0.9);
+}
+
+.hero-section .btn-outline-dark:hover,
+.hero-section .btn-outline-dark:focus,
+.hero-section .btn-outline-dark:active {
+    background: rgba(15,23,42,0.08);
+    color: var(--text);
+}
+
+.hero-section .btn:active,
+.hero-section .btn:focus {
+    box-shadow: 0 0 0 0.3rem rgba(251,146,60,0.25);
+}
+
+.hero-section .hero-stats .stat-card {
+    background: #ffffff;
+    border: 1px solid rgba(15,23,42,0.08);
+    border-radius: 14px;
+    padding: 18px;
+    box-shadow: 0 12px 30px rgba(15,23,42,0.05);
+}
+
+.hero-card {
+    background: #ffffff;
+    border: none;
+    border-radius: 24px;
+    box-shadow: 0 28px 70px rgba(15,23,42,0.12);
+}
+
+.profile-sample {
+    display: flex;
+    gap: 18px;
+    align-items: center;
+    padding: 18px;
+    background: #f8fafc;
+    border-radius: 18px;
+}
+
+.profile-avatar {
+    min-width: 64px;
+    min-height: 64px;
+    border-radius: 18px;
+    background: linear-gradient(135deg, #fb7185, #fb923c);
+    color: white;
+    font-weight: 700;
+    display: grid;
+    place-items: center;
+    box-shadow: 0 18px 42px rgba(251,113,133,0.2);
+}
+
+.icon-circle,
+.icon-box,
+.benefit-card .icon-circle,
+.feature-card .icon-box {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 56px;
+    height: 56px;
+    border-radius: 18px;
+    font-size: 1.25rem;
+}
+
+.icon-circle {
+    border-radius: 14px;
+    background: rgba(255,255,255,0.18);
+}
+
+.icon-box {
+    border-radius: 18px;
+}
+
+.icon-circle.bg-primary,
+.icon-box.bg-primary {
+    background: var(--primary);
+}
+
+.icon-circle.bg-purple,
+.icon-box.bg-purple {
+    background: var(--purple);
+}
+
+.icon-circle.bg-cyan,
+.icon-box.bg-cyan {
+    background: var(--cyan);
+}
+
+/* ===== BLOCKS DÉTAILLÉS ===== */
+.feature-card,
+.benefit-card {
+    background: white;
+    border-radius: 22px;
+    box-shadow: 0 18px 50px rgba(15,23,42,0.08);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.feature-card:hover,
+.benefit-card:hover,
+.hero-card:hover {
+    transform: translateY(-4px);
+}
+
+.section-light {
+    background: var(--white);
+}
+
+.section-light h2,
+.section-gradient h2,
+.cta-section h2 {
+    color: var(--text);
+}
+
+.section-gradient {
+    background: linear-gradient(180deg, rgba(79,70,229,0.12) 0%, rgba(59,130,246,0.08) 100%);
+}
+
+.benefit-card {
+    border: none;
+    padding: 32px;
+}
+
+.benefit-card h3,
+.feature-card h3 {
+    margin-bottom: 1rem;
+}
+
+.benefit-card p,
+.feature-card p {
+    color: var(--text-muted);
+}
+
+.cta-section {
+    background: white;
+}
+
+.cta-section .btn-primary {
+    box-shadow: 0 16px 36px rgba(79,70,229,0.18);
+}
+
+.stat-card strong {
+    display: block;
+    font-size: 1.05rem;
+    color: var(--text);
+}
+
+.stat-card p {
+    margin: 0;
+    color: var(--text-muted);
+}
+
+/* ===== NAVBAR ===== */
+.navbar {
+    background: rgba(17,24,39,0.95);
+}
+
+.navbar-dark .navbar-nav .nav-link {
+    color: rgba(255,255,255,0.8);
+}
+
+.navbar-dark .navbar-nav .nav-link:hover,
+.navbar-dark .navbar-nav .nav-link:focus {
+    color: white;
+}
+
+/* ===== FOOTER ===== */
+footer {
+    background: #111827;
+    position: relative;
+    z-index: 1;
+}
+
+footer p,
+footer small,
+footer a {
+    color: rgba(255,255,255,0.88);
+}
+
+footer a {
+    color: rgba(255,255,255,0.75);
+}
+
+footer a:hover,
+footer a:focus {
+    color: white;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 991px) {
+    .hero-section {
+        padding: 60px 0;
+    }
+
+    .hero-card,
+    .feature-card,
+    .benefit-card {
+        border-radius: 20px;
+    }
+}
+
+@media (max-width: 767px) {
+    .hero-section {
+        padding: 40px 0;
+    }
+
+    .hero-section h1 {
+        font-size: 2.4rem;
+    }
+
+    .hero-stats {
+        grid-template-columns: 1fr;
+    }
+
+    .profile-sample {
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .feature-card,
+    .benefit-card {
+        padding: 26px;
+    }
+}
