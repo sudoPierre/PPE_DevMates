@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <!-- Windows Forms nécessite le suffixe -windows -->
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <UseWindowsForms>true</UseWindowsForms>
+    <RootNamespace>DevMatesAdmin</RootNamespace>
+    <AssemblyName>DevMatesAdmin</AssemblyName>
+    <!-- Désactivé pour simplifier le code niveau débutant -->
+    <Nullable>disable</Nullable>
+    <ImplicitUsings>disable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- Connecteur officiel MySQL / MariaDB -->
+    <PackageReference Include="MySql.Data" Version="8.3.0" />
+    <!-- Vérification des hash bcrypt produits par PHP password_hash() -->
+    <PackageReference Include="BCrypt.Net-Next" Version="4.0.3" />
+  </ItemGroup>
+
+</Project>
